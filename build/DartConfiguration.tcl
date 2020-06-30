@@ -11,7 +11,7 @@ BuildDirectory: /Users/sky_miner/Documents/college/面向对象程序设计/Obje
 CostDataFile: 
 
 # Site is something like machine.domain, i.e. pragmatic.crd
-Site: 192.168.0.103
+Site: liuyichendeMacBook-Pro.local
 
 # Build name is osname-revision-compiler, i.e. Linux-2.4.2-2smp-c++
 BuildName: Darwin-clang++
