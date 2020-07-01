@@ -8,8 +8,11 @@
 #include <fstream>
 #include <cstdio>
 #include "defineList.h"
+#include "buffer.h"
 
 namespace binary{
+
+Buffer buf;
 
 // 下面的模块用于类型判断
 template<typename T1, typename T2>// 不相同类型进入此模块
@@ -36,68 +39,22 @@ int getTypeId(){ // 该函数返回 T 的类型 ID
     throw std::string("错误的传入类型，无法识别");
 }
 
-char buf[256]; // 文件IO缓冲
-int p ; // 辅助缓冲的指针 p
-
-void readFromFile(std::string fileName){// 该函数从文件中读入数据
-    FILE* in = fopen(fileName.c_str(),"rb"); // 打开文件
-    if(!in) throw std::string("文件打开失败");
-    // 读入2048位二进制
-    fread(buf,sizeof(char),sizeof(char)*256,in);
-    fclose(in);
-}
-
-void printToFile(std::string fileName){// 与上个函数类似，该函数输出到文件
-    FILE* out = fopen(fileName.c_str(),"wb");
-    if(!out) throw std::string("文件创建/写入失败");
-    fwrite(buf,sizeof(char),sizeof(char)*256,out);
-    fclose(out);
-}
-
-unsigned long long getNextN(int n){ // 获取二进制文件中由[p..p+n)部分组成的数字
-    if(p+n >= 256) throw std::string("获取字符越界");
-    if(n > 64) throw std::string("获取范围过大，最多获取64位");
-    unsigned long long ret = 0;
-    // 假设顺序为 buf[0] 0 - 7 , buf[1] 0 - 7
-    for(int i=0;i<n;++p,++i){
-        //std::cerr << "get " << p << " is " << ((buf[p/8] >> p%8) & 1) << std::endl;
-        ret = (ret << 1) | ((buf[p/8] >> (p%8)) & 1);
-    }
-    return ret;
-}
-
-inline void setNext(bool val){// 该函数用于对单点进行赋值
-    //std::cerr << "set " << p << " with " << val << std::endl;
-    if(val) buf[p/8] |= (1<<(p%8));
-    else buf[p/8] &= ~(1<<(p%8));
-    ++ p;
-}
-template<typename T>
-inline void setNBits(int n,T data){ // 将data中的低n个bit输出到buf中
-    while(n) setNext((data >> --n)&1 );
-}
-
-inline void clearBuf(){ // 清空buf
-    for(int i=0;i<256;++i) buf[i] = 0;
-    p = 0;
-}
-
 template<typename T>
 void ariSeria(int id, T data, std::string name){ // 序列化基础数据
-    setNext(0);setNext(0); // 设置格式首两位为基础数据类型
-    setNBits(4,id); // 设置格式后四位为具体数据类型
+    buf.setNext(0);buf.setNext(0); // 设置格式首两位为基础数据类型
+    buf.setNBits(4,id); // 设置格式后四位为具体数据类型
     switch(id){ // 根据不同数据类型选用数据存放所使用的位数
         case charID: case uncharID:
-            setNBits(8, data); // 8 位数据选用 8位存放
+            buf.setNBits(8, data); // 8 位数据选用 8位存放
             break;
         case shortID: case unshortID:
-            setNBits(16,data); // 16 位数据选用 16位存放
+            buf.setNBits(16,data); // 16 位数据选用 16位存放
             break;
         case intID: case unintID: case longID: case unlongID:
-            setNBits(32,data); // 32 位数据选用 32位存放
+            buf.setNBits(32,data); // 32 位数据选用 32位存放
             break;
         case longlongID: case unlonglongID:
-            setNBits(64,data); // 64 位数据选用 64位存放
+            buf.setNBits(64,data); // 64 位数据选用 64位存放
             break;
         case floatID: // 等待对接模块的完成
         case doubleID:
@@ -106,7 +63,7 @@ void ariSeria(int id, T data, std::string name){ // 序列化基础数据
     }
     // 至此，缓冲区数据完整
     try{
-        printToFile(name); // 输出到数据文件中
+        buf.printToFile(name); // 输出到数据文件中
     }catch(std::string s){
         throw s;
     }
@@ -121,16 +78,16 @@ template<typename T>
 void deAriSeria(int id,T &data){
     switch(id){ // 该switch语句根据数据的位数，决定接下来取多少位
         case charID: case uncharID:
-            data = getNextN(8);
+            data = buf.getNextN(8);
             break;
         case shortID: case unshortID:
-            data = getNextN(16);
+            data = buf.getNextN(16);
             break;
         case intID: case unintID: case longID: case unlongID:
-            data = getNextN(32);
+            data = buf.getNextN(32);
             break;
         case longlongID: case unlonglongID:
-            data = getNextN(64);
+            data = buf.getNextN(64);
             break;
         case floatID: // 等待对接模块完成
         case doubleID:
@@ -146,7 +103,7 @@ void deStlSeria(int id,T &data){
 
 template<typename T>
 void serialize(T data, std::string name){
-    clearBuf(); // 清空缓存区，准备开始存放数据
+    buf.clear(); // 清空缓存区，准备开始存放数据
     int Tid;
     try{
         Tid = getTypeId<T>(); // 获取data的类型
@@ -166,18 +123,18 @@ void serialize(T data, std::string name){
 
 template<typename T>
 void desetialize(T &data, std::string name){
-    clearBuf(); // 清空缓存区，准备开始存放数据
+    buf.clear(); // 清空缓存区，准备开始存放数据
     int Tid;
     try{
         Tid = getTypeId<T>(); // 获取data的类型
-        readFromFile(name);
+        buf.readFromFile(name);
     }catch(std::string s){
         std::cerr << s << std::endl;
         return ;
     }
-    int fid = getNextN(2); // 获取数据分类id
+    int fid = buf.getNextN(2); // 获取数据分类id
     try{
-        if(Tid != getNextN(4)) throw std::string("传入数据类型与文件中数据类型不符");
+        if(Tid != buf.getNextN(4)) throw std::string("传入数据类型与文件中数据类型不符");
         if(Tid <= unlonglongID) deAriSeria(Tid, data); // 解码基础数据
         else if(Tid <= mapID) deStlSeria(Tid, data); // 解码容器
         else throw std::string("未知的错误");
