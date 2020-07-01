@@ -22,5 +22,7 @@
 #define listID 23
 #define mapID 24
 
+#define ENDFLAG 2020
+
 
 #endif

@@ -1,5 +1,6 @@
 
 #include "buffer.h"
+#include <iostream>
 
 Buffer::Buffer(){
     clear();
@@ -21,7 +22,7 @@ void Buffer::printToFile(std::string fileName){// 与上个函数类似，该函
 }
 
 unsigned long long Buffer::getNextN(int n){ // 获取二进制文件中由[p..p+n)部分组成的数字
-    if(p+n >= 256) throw std::string("获取字符越界");
+    if(p+n >= 256*8) throw std::string("获取字符越界");
     if(n > 64) throw std::string("获取范围过大，最多获取64位");
     unsigned long long ret = 0;
     // 假设顺序为 buf[0] 0 - 7 , buf[1] 0 - 7
