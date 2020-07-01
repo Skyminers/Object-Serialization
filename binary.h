@@ -62,16 +62,11 @@ void ariSeria(int id, T data, std::string name){ // 序列化基础数据
             break;
     }
     // 至此，缓冲区数据完整
-    try{
-        buf.printToFile(name); // 输出到数据文件中
-    }catch(std::string s){
-        throw s;
-    }
 }
 
 template<typename T>
 void stlSeria(int id, T data, std::string name){
-
+    
 }
 
 template<typename T>
@@ -102,21 +97,35 @@ void deStlSeria(int id,T &data){
 }
 
 template<typename T>
+void __serialize(T data, std::string name){
+    int Tid = getTypeId<T>(); // 获取data的类型
+    //std::cerr << "Tid = " << Tid << std::endl;
+    if(Tid <= unlonglongID) ariSeria(Tid, data, name); // 基础数据类型函数
+    else if(Tid <= mapID) stlSeria(Tid, data, name); // 容器处理函数
+    else throw std::string("未定义的数据类型");
+}
+
+template<typename T>
+void __desetialize(T &data, std::string name){
+    int Tid = getTypeId<T>(); // 获取data的类型
+    buf.readFromFile(name); // 读入 buf
+    int fid = buf.getNextN(2); // 获取数据分类id
+    
+    if(Tid != buf.getNextN(4)) throw std::string("传入数据类型与文件中数据类型不符");
+    
+    if(Tid <= unlonglongID) deAriSeria(Tid, data); // 解码基础数据
+    else if(Tid <= mapID) deStlSeria(Tid, data); // 解码容器
+    else throw std::string("未知的错误");
+}
+
+template<typename T>
 void serialize(T data, std::string name){
     buf.clear(); // 清空缓存区，准备开始存放数据
-    int Tid;
     try{
-        Tid = getTypeId<T>(); // 获取data的类型
-        //std::cerr << "Tid = " << Tid << std::endl;
-    }catch(std::string s){
-        std::cerr << s << std::endl;
-        return ;
+        __serialize(data, name);
+        buf.printToFile(name); // 输出到数据文件中
     }
-    try{
-        if(Tid <= unlonglongID) ariSeria(Tid, data, name); // 基础数据类型函数
-        else if(Tid <= mapID) stlSeria(Tid, data, name); // 容器处理函数
-        else throw std::string("未定义的数据类型");
-    }catch(std::string s){
+    catch(std::string s){
         std::cerr << s << std::endl;
     }
 }
@@ -124,24 +133,11 @@ void serialize(T data, std::string name){
 template<typename T>
 void desetialize(T &data, std::string name){
     buf.clear(); // 清空缓存区，准备开始存放数据
-    int Tid;
     try{
-        Tid = getTypeId<T>(); // 获取data的类型
-        buf.readFromFile(name);
-    }catch(std::string s){
-        std::cerr << s << std::endl;
-        return ;
-    }
-    int fid = buf.getNextN(2); // 获取数据分类id
-    try{
-        if(Tid != buf.getNextN(4)) throw std::string("传入数据类型与文件中数据类型不符");
-        if(Tid <= unlonglongID) deAriSeria(Tid, data); // 解码基础数据
-        else if(Tid <= mapID) deStlSeria(Tid, data); // 解码容器
-        else throw std::string("未知的错误");
+        __desetialize(data, name);
     }catch(std::string s){
         std::cerr << s << std::endl;
     }
-
 }
 
 }
