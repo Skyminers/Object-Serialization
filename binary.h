@@ -13,6 +13,8 @@
 #include "typeJudger.h"
 #include "float.h"
 
+// 由于该模块包含大量template模版，导致无法分为.h与.cpp文件
+
 namespace binary{
 
 Buffer buf;
