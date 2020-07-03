@@ -151,7 +151,7 @@ pair<unsigned long long,unsigned long long> longDoubleToBinary( long double x ){
     }
     
     //置符号位 
-    unsigned long long high, low;	
+    unsigned long long high = 0, low = 0;	
 	//high的低16位是res的高16位， low是res的低64位 
 	if(sign)	high = 1;
 	high = high << 15;
