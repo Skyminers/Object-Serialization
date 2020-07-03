@@ -55,7 +55,7 @@ void __serializeAri(T data){
 }
 
 template<typename T>
-void __desetializeAri(T &data){
+void __deserializeAri(T &data){
     int Tid = getTypeId<T>(); // 获取data的类型
     int fid = buf.getNextN(2); // 获取数据分类id
     if(fid == 3) throw ENDFLAG;
@@ -105,11 +105,11 @@ void serializeAri(T data, std::string name){ // 序列化基础数据类型
 }
 
 template<class T>
-void desetializeAri(T &data, std::string name){ // 读取基础数据类型
+void deserializeAri(T &data, std::string name){ // 读取基础数据类型
     buf.clear(); // 清空缓存区，准备开始存放数据
     buf.readFromFile(name); // 读入 buf
     try{
-        __desetializeAri(data);
+        __deserializeAri(data);
     }catch(std::string s){
         std::cerr << s << std::endl;
     }catch(int x){
@@ -135,7 +135,7 @@ void __deserializeStl(std::string &data){ // 读取序列化STL容器 string
     char tmp;
     try{ // 利用 try catch 结构进行边界判定
         while(1){
-            __desetializeAri(tmp); // 读入到结束标志时会抛出 ENDFLAG
+            __deserializeAri(tmp); // 读入到结束标志时会抛出 ENDFLAG
             data += tmp; // 依次读取序列化数据，并且组合
         }
     }catch(int x){
@@ -159,8 +159,8 @@ template<typename T1, typename T2>
 void __deserializeStl(std::pair<T1,T2> &data){ // 读取序列化STL容器 pair
     if(buf.getNextN(2) != 1) throw std::string("错误的数据种类");
     if(buf.getNextN(4) != pairID-stringID) throw std::string("错误的数据类型");
-    __desetializeAri(data.first); // 依次读取两个序列化数据
-    __desetializeAri(data.second);
+    __deserializeAri(data.first); // 依次读取两个序列化数据
+    __deserializeAri(data.second);
 }
 
 template<typename T>
@@ -180,7 +180,7 @@ void __deserializeStl(std::vector<T> &data){ // 读取序列化STL容器 vector
     T tmp;
     try{ // 利用 try catch 结构进行边界判定
         while(1){
-            __desetializeAri(tmp); // 读入到结束标志时会抛出 ENDFLAG
+            __deserializeAri(tmp); // 读入到结束标志时会抛出 ENDFLAG
             data.push_back(tmp); // 依次读取序列化数据，并且组合
         }
     }catch(int x){
@@ -208,7 +208,7 @@ void __deserializeStl(std::list<T> &data){ // 序列化STL容器 list
     T tmp;
     try{ // 利用 try catch 结构进行边界判定
         while(1){
-            __desetializeAri(tmp); // 读入到结束标志时会抛出 ENDFLAG
+            __deserializeAri(tmp); // 读入到结束标志时会抛出 ENDFLAG
             data.push_back(tmp); // 依次读取序列化数据，并且组合
         }
     }catch(int x){
@@ -238,8 +238,8 @@ void __deserializeStl(std::map<T1,T2> &data){ // 读取序列化STL容器 map
     T1 x; T2 y;
     try{ // 利用 try catch 结构进行边界判定
         while(1){
-            __desetializeAri(x); // 读入到结束标志时会抛出 ENDFLAG
-            __desetializeAri(y); // 读入到结束标志时会抛出 ENDFLAG
+            __deserializeAri(x); // 读入到结束标志时会抛出 ENDFLAG
+            __deserializeAri(y); // 读入到结束标志时会抛出 ENDFLAG
             data[x] = y; // 依次读取序列化数据，并且组合
         }
     }catch(int x){
