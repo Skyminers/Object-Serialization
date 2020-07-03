@@ -21,7 +21,7 @@ unsigned long long doubleToBinary( double );
 //long double浮点数转化成80位 IEEE-754编码
 //first的第16位+second
 //精度范围：小数点后19位
-pair<long long, long long> longDoubleToBinary( long double );
+pair<unsigned long long,unsigned long long> longDoubleToBinary( long double );
 
 //译码函数：二进制码转化成浮点数
 
@@ -32,7 +32,7 @@ float binaryToFloat ( int );
 double binaryToDouble( long long);
 
 //精度范围：小数点后19位
-long double binaryToLongDouble(pair<long long, long long> x);
+long double binaryToLongDouble(pair<unsigned long long,unsigned long long> x);
 
 
 #endif

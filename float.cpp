@@ -110,7 +110,7 @@ unsigned long long doubleToBinary( double x ){
 	return res; 
 }
  
-pair<long long,long long> longDoubleToBinary( long double x ){
+pair<unsigned long long,unsigned long long> longDoubleToBinary( long double x ){
 	
     //符号位,当浮点数为负数是置1，否则置0
     bool sign = false;
@@ -151,7 +151,7 @@ pair<long long,long long> longDoubleToBinary( long double x ){
     }
     
     //置符号位 
-    long long high, low;	
+    unsigned long long high, low;	
 	//high的低16位是res的高16位， low是res的低64位 
 	if(sign)	high = 1;
 	high = high << 15;
@@ -163,7 +163,7 @@ pair<long long,long long> longDoubleToBinary( long double x ){
 	//置底数位
 	low = fra; 
 
-	pair<long long,long long> res;
+	pair<unsigned long long,unsigned long long> res;
 	res.first = high;
 	res.second = low;
 	return res; 
