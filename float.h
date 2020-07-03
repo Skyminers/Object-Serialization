@@ -26,10 +26,10 @@ pair<unsigned long long,unsigned long long> longDoubleToBinary( long double );
 //译码函数：二进制码转化成浮点数
 
 //精度范围：小数点后6位
-float binaryToFloat ( int );
+float binaryToFloat ( unsigned  int );
 
 //精度范围：小数点后15位
-double binaryToDouble( long long);
+double binaryToDouble(unsigned long long);
 
 //精度范围：小数点后19位
 long double binaryToLongDouble(pair<unsigned long long,unsigned long long> x);
