@@ -9,14 +9,29 @@
 
 using namespace std;
 
-//编码函数
+//编码函数：浮点数转化成二进制码
+
+//单精度浮点数转化成32位 IEEE-754编码
 unsigned int floatToBinary( float );
+
+//双精度浮点数转化成64位 IEEE-754编码
+//精度范围：小数点后15位
 unsigned long long doubleToBinary( double );
+
+//long double浮点数转化成80位 IEEE-754编码
+//first的第16位+second
+//精度范围：小数点后19位
 pair<long long, long long> longDoubleToBinary( long double );
 
-//译码函数
+//译码函数：二进制码转化成浮点数
+
+//精度范围：小数点后6位
 float binaryToFloat ( int );
+
+//精度范围：小数点后15位
 double binaryToDouble( long long);
+
+//精度范围：小数点后19位
 long double binaryToLongDouble(pair<long long, long long> x);
 
 

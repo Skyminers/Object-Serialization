@@ -39,7 +39,7 @@ unsigned int floatToBinary( float x ){
 		} 
 		else{
 			exp = e + BASE_32;
-			if(exp > 0xFF){	//exp只有8位，超过8位就不能表示 
+			if(exp > 0xFF){		//exp只有8位，超过8位就不能表示 
 				exp = 0xFF;
 				fra = 0;
 			}
@@ -111,7 +111,7 @@ unsigned long long doubleToBinary( double x ){
 }
 
 //只能做到double的精度？ 目前还不确定 
-pair<long long, long long> longDoubleToBinary( long double x ){
+pair<unsigned long long, unsigned long long> longDoubleToBinary( long double x ){
 	
     //符号位,当浮点数为负数是置1，否则置0
     bool sign = false;
@@ -137,7 +137,7 @@ pair<long long, long long> longDoubleToBinary( long double x ){
         f = frexp(x, &e);
         f = f*2-1;
         fra = ldexp(f, 64);
-	 	long double tmp = ldexp(fra, -64);
+
 		if( e <= -BASE_80){		//浮点数过小，表示为0 
 			fra = 0;
 			exp = 0;
@@ -152,7 +152,7 @@ pair<long long, long long> longDoubleToBinary( long double x ){
     }
     
     //置符号位 
-    long long high, low;	
+    unsigned long long high, low;	
 	//high的低16位是res的高16位， low是res的低64位 
 	if(sign)	high = 1;
 	high = high << 15;
@@ -164,23 +164,23 @@ pair<long long, long long> longDoubleToBinary( long double x ){
 	//置底数位
 	low = fra; 
 
-	pair<long long, long long> res = {high, low};
+	pair<unsigned long long,unsigned long long> res = {high, low};
 	res.first = high;
 	res.second = low;
 	return res; 
 }
 
-float binaryToFloat ( int x ){
+float binaryToFloat ( unsigned int x ){
 	float res;
-	bool sign = x & 0x80000000;
-	int exp = (x & 0x7F800000) >> 23;
-	int fra = x & 0x7FFFFF;
+	bool sign = x & 0x80000000;			//获取最高位：符号位
+	unsigned int exp = (x & 0x7F800000) >> 23;	//获取指数
+	unsigned int fra = x & 0x7FFFFF;				//获取小数
 	
-	float fraction = (float)fra/((int)2<<22);
-	fraction += 1;
+	float fraction = (float)fra/((unsigned int)2<<22);
+	fraction += 1;						//在这个地方+1
 
 	if(exp == 0xFF){
-		if(fra == (int)2<<23 ){
+		if(fra == (unsigned int)2<<23 ){
 			return sign ? -1.0/0.0 : 1.0/0.0;
 		}
 		else{
@@ -191,16 +191,17 @@ float binaryToFloat ( int x ){
 
 	return res;
 }
-double binaryToDouble( long long x){
+
+double binaryToDouble(unsigned long long x){
 	double res;
 	bool sign = x & 0x8000000000000000; 
-	long long exp = (x & 0x7FF0000000000000) >> 52;
-	long long fra = x & 0xFFFFFFFFFFFFF;
+	unsigned long long exp = (x & 0x7FF0000000000000) >> 52;
+	unsigned long long fra = x & 0xFFFFFFFFFFFFF;
 		
-	double fraction = (double)fra/((long long)2<<51);
+	double fraction = (double)fra/((unsigned long long)2<<51);
 	fraction += 1;
 	if(exp == 0x7FF){
-		if(fra == (long long)2<<52 ){
+		if(fra == (unsigned long long)2<<52 ){
 			return sign ? -1.0/0.0 : 1.0/0.0;
 		}
 		else{
@@ -211,17 +212,17 @@ double binaryToDouble( long long x){
 	return res;
 }
 
-long double binaryToLongDouble(pair<long long, long long> x){
+long double binaryToLongDouble(pair<unsigned long long,unsigned long long> x){
 	long double res;
 	bool sign = x.first & 0x8000;
-	long long exp = x.first & 0x7FFF;
-	long long fra = x.second;
+	unsigned long long exp = x.first & 0x7FFF;
+	unsigned long long fra = x.second;			
 	
 	long double fraction = ldexp(fra, -64);
 	fraction += 1;
 
 	if(exp == 0x7FFF){
-		if(fra == (long long)2<<63 ){
+		if(fra == (unsigned long long)2<<63 ){
 			return sign ? -1.0/0.0 : 1.0/0.0;
 		}
 		else{
