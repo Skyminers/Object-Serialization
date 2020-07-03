@@ -2,23 +2,24 @@
 #include "binary.h"
 #include "tinyxml2.h"
 #include "seriXml.h"
-using namespace binary;
+#include "userDefined.h"
 
 int main(){
+
     unsigned long long x = 18446744073709551615ULL,y = 0;
     printf("%llu\n",x);
     xml::serializeAri_xml(x,"data.xml");
-    xml::desetializeAri_xml(y,"data.xml");
+    xml::deserializeAri_xml(y,"data.xml");
     int a = 123,b;
     xml::serializeAri_xml(a,"data.xml");
-    xml::desetializeAri_xml(b,"data.xml");
+    xml::deserializeAri_xml(b,"data.xml");
     printf("%llu\n",y);
     printf("%d\n",b);
 
     long double doublea = 123.321999;
     long double doubleb;
-    serializeAri(doublea,"data.bin");
-    desetializeAri(doubleb,"data.bin");
+    binary::serializeAri(doublea,"data.bin");
+    binary::deserializeAri(doubleb,"data.bin");
     printf("%Lf\n",doubleb);
 
     auto p = std::make_pair(1,1);
@@ -56,4 +57,14 @@ int main(){
     xml::deserializeStl_xml(mp2,"data.xml");
     std::cerr << mp2['a'] << " " << mp2['z'] << std::endl;
 
+    userDef::Base1._char = 'z';
+    userDef::Base1._double = 2020.0202;
+    userDef::Base1._vector_int.push_back(10);
+    userDef::Base1._vector_int.push_back(22);
+    userDef::structToBinary("struct.bin");
+    userDef::binaryToStruct("struct.bin");
+    printf("%c %lf %d %d\n",userDef::Base2._char,
+                            userDef::Base2._double,
+                            userDef::Base2._vector_int[0],
+                            userDef::Base2._vector_int[1]);
 }
