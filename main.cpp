@@ -15,11 +15,11 @@ int main(){
     printf("%llu\n",y);
     printf("%d\n",b);
 
-    double doublea = 123.321;
-    double doubleb;
-    xml::serializeAri_xml(doublea,"data.xml");
-    xml::desetializeAri_xml(doubleb,"data.xml");
-    printf("%lf\n",doubleb);
+    long double doublea = 123.321999;
+    long double doubleb;
+    serializeAri(doublea,"data.bin");
+    desetializeAri(doubleb,"data.bin");
+    printf("%Lf\n",doubleb);
 
     auto p = std::make_pair(1,1);
     xml::serializeStl_xml(p,"data.xml");
