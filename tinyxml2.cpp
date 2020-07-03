@@ -1628,6 +1628,13 @@ double XMLElement::DoubleAttribute(const char* name, double defaultValue) const
 	return d;
 }
 
+long double XMLElement::LongDoubleAttribute(const char* name, long double defaultValue) const
+{
+	double d = defaultValue;
+	QueryDoubleAttribute(name, &d);
+	return d;
+}
+
 float XMLElement::FloatAttribute(const char* name, float defaultValue) const
 {
 	float f = defaultValue;

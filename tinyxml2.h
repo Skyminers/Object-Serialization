@@ -1324,6 +1324,8 @@ public:
     /// See IntAttribute()
 	double DoubleAttribute(const char* name, double defaultValue = 0) const;
     /// See IntAttribute()
+	long double LongDoubleAttribute(const char* name, long double defaultValue = 0) const;
+    /// See IntAttribute()
 	float FloatAttribute(const char* name, float defaultValue = 0) const;
 
     /** Given an attribute name, QueryIntAttribute() returns
@@ -1479,6 +1481,30 @@ public:
 	}
 
     /// Sets the named attribute to value.
+	void SetAttribute(const char* name, long value) {
+		XMLAttribute* a = FindOrCreateAttribute(name);
+		a->SetAttribute((int)value);
+	}
+
+    /// Sets the named attribute to value.
+	void SetAttribute(const char* name, unsigned long value) {
+		XMLAttribute* a = FindOrCreateAttribute(name);
+		a->SetAttribute((unsigned int)value);
+	}
+
+    /// Sets the named attribute to value.
+	void SetAttribute(const char* name, short value) {
+		XMLAttribute* a = FindOrCreateAttribute(name);
+		a->SetAttribute((int)value);
+	}
+
+    /// Sets the named attribute to value.
+	void SetAttribute(const char* name, unsigned short value) {
+		XMLAttribute* a = FindOrCreateAttribute(name);
+		a->SetAttribute((unsigned int)value);
+	}
+
+    /// Sets the named attribute to value.
     void SetAttribute(const char* name, uint64_t value) {
         XMLAttribute* a = FindOrCreateAttribute(name);
         a->SetAttribute(value);
@@ -1493,6 +1519,11 @@ public:
     void SetAttribute( const char* name, double value )		{
         XMLAttribute* a = FindOrCreateAttribute( name );
         a->SetAttribute( value );
+    }
+    /// Sets the named attribute to value.
+    void SetAttribute( const char* name, long double value )		{
+        XMLAttribute* a = FindOrCreateAttribute( name );
+        a->SetAttribute( (double)value );
     }
     /// Sets the named attribute to value.
     void SetAttribute( const char* name, float value )		{
