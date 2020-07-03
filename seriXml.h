@@ -30,7 +30,7 @@ void getValueFrom(T &data, int Tid,tinyxml2::XMLElement *p,std::string s){
         case unlonglongID: data =  (unsigned long long)p->Unsigned64Attribute(s.c_str()); break;
         case floatID: data =  (float)p->FloatAttribute(s.c_str()); break;
         case doubleID: data =  (double)p->DoubleAttribute(s.c_str()); break;
-        case longdoubleID: data =  (long double)p->DoubleAttribute(s.c_str()); break;
+        case longdoubleID: data =  (long double)p->LongDoubleAttribute(s.c_str()); break;
         default:
             throw std::string("错误的Tid，没有找到对应类型");
     }
@@ -49,14 +49,17 @@ void __serializeAri(tinyxml2::XMLElement *root,T data){
 }
 
 template<typename T>
-void __desetializeAri(tinyxml2::XMLElement *root,T &data){
+void __deserializeAri(tinyxml2::XMLElement *root,T &data){
     if(root == NULL) throw std::string("错误，root 指针为 NULL");
     int Tid = getTypeId<T>(); // 获取data的类型
     if(Tid < charID || Tid > longdoubleID) throw std::string("不符合定义的数据类型");
     // 获取类型名称，并且查询root中第一个符合条件的节点
-    tinyxml2::XMLElement *p = root->FirstChildElement(getTypeName(Tid).c_str());
+    tinyxml2::XMLElement *p = root;
+    if(std::string(root->Name()) != getTypeName(Tid)) // 判断是由于可能会直接将该数据节点指针传入
+        p = root->FirstChildElement(getTypeName(Tid).c_str());
     if(p == NULL) throw std::string("没有找到该节点");
     getValueFrom(data,Tid,p,"val");
+    
 }
 
 template<typename T>
@@ -77,11 +80,11 @@ void serializeAri_xml(T data, std::string name){ // 序列化基础数据类型
 }
 
 template<class T>
-void desetializeAri_xml(T &data, std::string name){ // 读取基础数据类型
+void deserializeAri_xml(T &data, std::string name){ // 读取基础数据类型
     try{
         //读取xml文件
         if(doc.LoadFile(name.c_str())) throw std::string("读入文件失败");
-        __desetializeAri(doc.RootElement(),data);
+        __deserializeAri(doc.RootElement(),data);
     }catch(std::string s){
         std::cerr << s << std::endl;
     }catch(int x){
@@ -93,14 +96,17 @@ void desetializeAri_xml(T &data, std::string name){ // 读取基础数据类型
 
 void __serializeStl(tinyxml2::XMLElement *root, std::string data){ // 序列化STL容器 string
     if(root == NULL) throw std::string("错误，root 指针为 NULL");
-    tinyxml2::XMLElement *p = doc.NewElement("string"); // 设置一级父节点
+    tinyxml2::XMLElement *p = doc.NewElement("std_string"); // 设置一级父节点
     p->SetAttribute("val",data.c_str());
     root->InsertEndChild(p);
 }
 
 void __deserializeStl(tinyxml2::XMLElement *root, std::string &data){ // 读取序列化STL容器 string
     if(root == NULL) throw std::string("错误，root 指针为 NULL");
-    tinyxml2::XMLElement *p = root->FirstChildElement("string"); // 找到 string 节点
+    tinyxml2::XMLElement *p = root;
+    // 该判断同__deserializeAri
+    if(std::string(root->Name()) != std::string("std_string"))
+        p = root->FirstChildElement("std_string"); // 找到 string 节点
     if(p == NULL) throw std::string("没有找到 string 对应节点");
     data = p->Attribute("val");
 }
@@ -123,7 +129,10 @@ void __serializeStl(tinyxml2::XMLElement *root, std::pair<T1,T2> data){ // 序�
 template<typename T1, typename T2>
 void __deserializeStl(tinyxml2::XMLElement *root, std::pair<T1,T2> &data){ // 读取序列化STL容器 pair
     if(root == NULL) throw std::string("错误，root 指针为 NULL");
-    tinyxml2::XMLElement *rt = root->FirstChildElement("std_pair"); // 找到 pair 节点
+    tinyxml2::XMLElement *rt = root;
+    // 该判断同__deserializeAri
+    if(std::string(root->Name()) != std::string("std_pair"))
+        rt = root->FirstChildElement("std_pair"); // 找到 pair 节点
     if(rt == NULL) throw std::string("没有找到 pair 对应节点");
     std::string typeName1 = getTypeName(getTypeId<T1>()); // 获取该pair的两个类型
     std::string typeName2 = getTypeName(getTypeId<T2>());
@@ -152,7 +161,10 @@ void __serializeStl(tinyxml2::XMLElement *root,std::vector<T> data){ // 序列�
 template<typename T>
 void __deserializeStl(tinyxml2::XMLElement *root, std::vector<T> &data){ // 读取序列化STL容器 vector
     if(root == NULL) throw std::string("错误，root 指针为 NULL");
-    tinyxml2::XMLElement *rt = root->FirstChildElement("std_vector"); // 找到 vector 节点
+    tinyxml2::XMLElement *rt = root;
+    // 该判断同__deserializeAri
+    if(std::string(root->Name()) != std::string("std_vector"))
+        rt = root->FirstChildElement("std_vector"); // 找到 vector 节点
     if(rt == NULL) throw std::string("没有找到 vector 对应节点");
     int Tid;
     std::string typeName = getTypeName(Tid = getTypeId<T>());
@@ -183,7 +195,10 @@ void __serializeStl(tinyxml2::XMLElement *root, std::list<T> data){ // 序列化
 template<typename T>
 void __deserializeStl(tinyxml2::XMLElement *root,std::list<T> &data){ // 序列化STL容器 list
     if(root == NULL) throw std::string("错误，root 指针为 NULL");
-    tinyxml2::XMLElement *rt = root->FirstChildElement("std_list"); // 找到 list 节点
+    tinyxml2::XMLElement *rt = root;
+    // 该判断同__deserializeAri
+    if(std::string(root->Name()) != std::string("std_list"))
+        rt = root->FirstChildElement("std_list"); // 找到 list 节点
     if(rt == NULL) throw std::string("没有找到 list 对应节点");
     int Tid;
     std::string typeName = getTypeName(Tid = getTypeId<T>());
@@ -215,7 +230,10 @@ void __serializeStl(tinyxml2::XMLElement *root,std::map<T1,T2> data){ // 序列�
 template<typename T1, typename T2>
 void __deserializeStl(tinyxml2::XMLElement *root,std::map<T1,T2> &data){ // 读取序列化STL容器 map
     if(root == NULL) throw std::string("错误，root 指针为 NULL");
-    tinyxml2::XMLElement *rt = root->FirstChildElement("std_map"); // 找到 map 节点
+    tinyxml2::XMLElement *rt = root;
+    // 该判断同__deserializeAri
+    if(std::string(root->Name()) != std::string("std_map"))
+        rt = root->FirstChildElement("std_map"); // 找到 string 节点
     if(rt == NULL) throw std::string("没有找到 map 对应节点");
     tinyxml2::XMLElement *p = rt->FirstChildElement("pair"); // 找到 map 节点内的元素
     data.clear(); // 清空 map ， 准备储存数据
