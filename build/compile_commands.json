@@ -3,5 +3,20 @@
   "directory": "/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/build",
   "command": "/usr/bin/clang++    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -o CMakeFiles/Object-Serialization.dir/main.cpp.o -c /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/main.cpp",
   "file": "/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/main.cpp"
+},
+{
+  "directory": "/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/build",
+  "command": "/usr/bin/clang++    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -o CMakeFiles/Object-Serialization.dir/buffer.cpp.o -c /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/buffer.cpp",
+  "file": "/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/buffer.cpp"
+},
+{
+  "directory": "/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/build",
+  "command": "/usr/bin/clang++    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -o CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.o -c /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/tinyxml2.cpp",
+  "file": "/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/tinyxml2.cpp"
+},
+{
+  "directory": "/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/build",
+  "command": "/usr/bin/clang++    -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk   -o CMakeFiles/Object-Serialization.dir/float.cpp.o -c /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/float.cpp",
+  "file": "/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/float.cpp"
 }
 ]

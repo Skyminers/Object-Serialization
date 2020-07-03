@@ -61,6 +61,15 @@
         "typeinfo": "cpp",
         "unordered_map": "cpp",
         "utility": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "deque": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp",
+        "stack": "cpp",
+        "filesystem": "cpp",
+        "__tree": "cpp",
+        "map": "cpp",
+        "memory_resource": "cpp",
+        "list": "cpp"
     }
 }

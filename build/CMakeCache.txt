@@ -348,6 +348,12 @@ SLURM_SRUN_COMMAND:FILEPATH=SLURM_SRUN_COMMAND-NOTFOUND
 //Path to a program.
 SVNCOMMAND:FILEPATH=/usr/bin/svn
 
+//Value Computed by CMake
+Vector_BINARY_DIR:STATIC=/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/build
+
+//Value Computed by CMake
+Vector_SOURCE_DIR:STATIC=/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization
+
 
 ########################
 # INTERNAL cache entries

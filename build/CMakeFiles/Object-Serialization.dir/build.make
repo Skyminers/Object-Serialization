@@ -70,17 +70,62 @@ CMakeFiles/Object-Serialization.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Object-Serialization.dir/main.cpp.s"
 	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/main.cpp -o CMakeFiles/Object-Serialization.dir/main.cpp.s
 
+CMakeFiles/Object-Serialization.dir/buffer.cpp.o: CMakeFiles/Object-Serialization.dir/flags.make
+CMakeFiles/Object-Serialization.dir/buffer.cpp.o: ../buffer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Object-Serialization.dir/buffer.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Object-Serialization.dir/buffer.cpp.o -c /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/buffer.cpp
+
+CMakeFiles/Object-Serialization.dir/buffer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Object-Serialization.dir/buffer.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/buffer.cpp > CMakeFiles/Object-Serialization.dir/buffer.cpp.i
+
+CMakeFiles/Object-Serialization.dir/buffer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Object-Serialization.dir/buffer.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/buffer.cpp -o CMakeFiles/Object-Serialization.dir/buffer.cpp.s
+
+CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.o: CMakeFiles/Object-Serialization.dir/flags.make
+CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.o: ../tinyxml2.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.o -c /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/tinyxml2.cpp
+
+CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/tinyxml2.cpp > CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.i
+
+CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/tinyxml2.cpp -o CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.s
+
+CMakeFiles/Object-Serialization.dir/float.cpp.o: CMakeFiles/Object-Serialization.dir/flags.make
+CMakeFiles/Object-Serialization.dir/float.cpp.o: ../float.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Object-Serialization.dir/float.cpp.o"
+	/usr/bin/clang++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Object-Serialization.dir/float.cpp.o -c /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/float.cpp
+
+CMakeFiles/Object-Serialization.dir/float.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Object-Serialization.dir/float.cpp.i"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/float.cpp > CMakeFiles/Object-Serialization.dir/float.cpp.i
+
+CMakeFiles/Object-Serialization.dir/float.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Object-Serialization.dir/float.cpp.s"
+	/usr/bin/clang++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/float.cpp -o CMakeFiles/Object-Serialization.dir/float.cpp.s
+
 # Object files for target Object-Serialization
 Object__Serialization_OBJECTS = \
-"CMakeFiles/Object-Serialization.dir/main.cpp.o"
+"CMakeFiles/Object-Serialization.dir/main.cpp.o" \
+"CMakeFiles/Object-Serialization.dir/buffer.cpp.o" \
+"CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.o" \
+"CMakeFiles/Object-Serialization.dir/float.cpp.o"
 
 # External object files for target Object-Serialization
 Object__Serialization_EXTERNAL_OBJECTS =
 
 Object-Serialization: CMakeFiles/Object-Serialization.dir/main.cpp.o
+Object-Serialization: CMakeFiles/Object-Serialization.dir/buffer.cpp.o
+Object-Serialization: CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.o
+Object-Serialization: CMakeFiles/Object-Serialization.dir/float.cpp.o
 Object-Serialization: CMakeFiles/Object-Serialization.dir/build.make
 Object-Serialization: CMakeFiles/Object-Serialization.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Object-Serialization"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/sky_miner/Documents/college/面向对象程序设计/Object-Serialization/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Object-Serialization"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Object-Serialization.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

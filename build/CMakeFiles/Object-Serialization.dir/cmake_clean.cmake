@@ -1,5 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Object-Serialization.dir/buffer.cpp.o"
+  "CMakeFiles/Object-Serialization.dir/float.cpp.o"
   "CMakeFiles/Object-Serialization.dir/main.cpp.o"
+  "CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.o"
   "Object-Serialization"
   "Object-Serialization.pdb"
 )

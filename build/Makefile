@@ -520,6 +520,60 @@ Experimental/fast:
 	$(MAKE) -f CMakeFiles/Experimental.dir/build.make CMakeFiles/Experimental.dir/build
 .PHONY : Experimental/fast
 
+buffer.o: buffer.cpp.o
+
+.PHONY : buffer.o
+
+# target to build an object file
+buffer.cpp.o:
+	$(MAKE) -f CMakeFiles/Object-Serialization.dir/build.make CMakeFiles/Object-Serialization.dir/buffer.cpp.o
+.PHONY : buffer.cpp.o
+
+buffer.i: buffer.cpp.i
+
+.PHONY : buffer.i
+
+# target to preprocess a source file
+buffer.cpp.i:
+	$(MAKE) -f CMakeFiles/Object-Serialization.dir/build.make CMakeFiles/Object-Serialization.dir/buffer.cpp.i
+.PHONY : buffer.cpp.i
+
+buffer.s: buffer.cpp.s
+
+.PHONY : buffer.s
+
+# target to generate assembly for a file
+buffer.cpp.s:
+	$(MAKE) -f CMakeFiles/Object-Serialization.dir/build.make CMakeFiles/Object-Serialization.dir/buffer.cpp.s
+.PHONY : buffer.cpp.s
+
+float.o: float.cpp.o
+
+.PHONY : float.o
+
+# target to build an object file
+float.cpp.o:
+	$(MAKE) -f CMakeFiles/Object-Serialization.dir/build.make CMakeFiles/Object-Serialization.dir/float.cpp.o
+.PHONY : float.cpp.o
+
+float.i: float.cpp.i
+
+.PHONY : float.i
+
+# target to preprocess a source file
+float.cpp.i:
+	$(MAKE) -f CMakeFiles/Object-Serialization.dir/build.make CMakeFiles/Object-Serialization.dir/float.cpp.i
+.PHONY : float.cpp.i
+
+float.s: float.cpp.s
+
+.PHONY : float.s
+
+# target to generate assembly for a file
+float.cpp.s:
+	$(MAKE) -f CMakeFiles/Object-Serialization.dir/build.make CMakeFiles/Object-Serialization.dir/float.cpp.s
+.PHONY : float.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -546,6 +600,33 @@ main.s: main.cpp.s
 main.cpp.s:
 	$(MAKE) -f CMakeFiles/Object-Serialization.dir/build.make CMakeFiles/Object-Serialization.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+tinyxml2.o: tinyxml2.cpp.o
+
+.PHONY : tinyxml2.o
+
+# target to build an object file
+tinyxml2.cpp.o:
+	$(MAKE) -f CMakeFiles/Object-Serialization.dir/build.make CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.o
+.PHONY : tinyxml2.cpp.o
+
+tinyxml2.i: tinyxml2.cpp.i
+
+.PHONY : tinyxml2.i
+
+# target to preprocess a source file
+tinyxml2.cpp.i:
+	$(MAKE) -f CMakeFiles/Object-Serialization.dir/build.make CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.i
+.PHONY : tinyxml2.cpp.i
+
+tinyxml2.s: tinyxml2.cpp.s
+
+.PHONY : tinyxml2.s
+
+# target to generate assembly for a file
+tinyxml2.cpp.s:
+	$(MAKE) -f CMakeFiles/Object-Serialization.dir/build.make CMakeFiles/Object-Serialization.dir/tinyxml2.cpp.s
+.PHONY : tinyxml2.cpp.s
 
 # Help Target
 help:
@@ -587,9 +668,18 @@ help:
 	@echo "... ExperimentalMemCheck"
 	@echo "... Continuous"
 	@echo "... Experimental"
+	@echo "... buffer.o"
+	@echo "... buffer.i"
+	@echo "... buffer.s"
+	@echo "... float.o"
+	@echo "... float.i"
+	@echo "... float.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... tinyxml2.o"
+	@echo "... tinyxml2.i"
+	@echo "... tinyxml2.s"
 .PHONY : help
 
 
