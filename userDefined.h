@@ -39,14 +39,14 @@ namespace userDefined{
         //模板数据类型
         std::string _string;
         std::pair<int, int> _pair_int;
-        std::vector<int> _vetor_int;
+        std::vector<int> _vector_int;
         std::list<int> _list_int;
         std::map<int, int> _map_int;
 
         userDefined();
-        void structToBinary();
-        void BinaryToStruct();
-    };
+        void structToBinary(std::string name);
+        void BinaryToStruct(std::string name);
+    }Base;
     
 }
 
