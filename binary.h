@@ -11,6 +11,7 @@
 #include "defineList.h"
 #include "buffer.h"
 #include "typeJudger.h"
+#include "float.h"
 
 namespace binary{
 
@@ -20,7 +21,7 @@ template<typename T>
 void __serializeAri(T data){
     int Tid = getTypeId<T>(); // 获取data的类型
     //std::cerr << "Tid = " << Tid << std::endl;
-    if(Tid < charID || Tid > unlonglongID) throw std::string("不符合定义的数据类型");
+    if(Tid < charID || Tid > longdoubleID) throw std::string("不符合定义的数据类型");
 
     buf.setNext(0);buf.setNext(0); // 设置格式首两位为基础数据类型
     buf.setNBits(4,Tid); // 设置格式后四位为具体数据类型
@@ -37,9 +38,17 @@ void __serializeAri(T data){
         case longlongID: case unlonglongID:
             buf.setNBits(64,data); // 64 位数据选用 64位存放
             break;
-        case floatID: // 等待对接模块的完成
-        case doubleID:
-        case longdoubleID:
+        // 浮点数先通过IEEE-754编码转化为二进制数，再进行存储
+        case floatID:  // 32 位
+            buf.setNBits(32,floatToBinary(data));
+            break;
+        case doubleID: // 64 位
+            buf.setNBits(64,doubleToBinary(data));
+            break;
+        case longdoubleID: // 80 位
+            pair<long long,long long> p = longDoubleToBinary(data);
+            buf.setNBits(16,p.first);
+            buf.setNBits(64,p.second);
             break;
     }
     // 至此，缓冲区数据完整
@@ -53,7 +62,7 @@ void __desetializeAri(T &data){
     if(fid != 0) throw std::string("错误的数据分类");
     if(Tid != buf.getNextN(4)) throw std::string("传入数据类型与文件中数据类型不符");
     
-    if(Tid < charID || Tid > unlonglongID) throw std::string("不符合定义的数据类型");
+    if(Tid < charID || Tid > longdoubleID) throw std::string("不符合定义的数据类型");
     switch(Tid){ // 该switch语句根据数据的位数，决定接下来取多少位
         case charID: case uncharID:
             data = buf.getNextN(8); // 8 位
@@ -67,9 +76,18 @@ void __desetializeAri(T &data){
         case longlongID: case unlonglongID:
             data = buf.getNextN(64); // 64 位
             break;
-        case floatID: // 等待对接模块完成
-        case doubleID:
-        case longdoubleID:
+        // 先读取二进制码，然后根据IEEE-754编码规则转化为浮点数
+        case floatID:  // 32 位
+            data = binaryToFloat(buf.getNextN(32));
+            break;
+        case doubleID: // 64 位
+            data = binaryToDouble(buf.getNextN(64));
+            break;
+        case longdoubleID: // 80 位
+            pair<long long,long long>p;
+            p.first = buf.getNextN(16);
+            p.second = buf.getNextN(64);
+            data = binaryToLongDouble(p);
             break;
     }
 }
