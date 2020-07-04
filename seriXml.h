@@ -74,7 +74,7 @@ void serializeAri_xml(T data, std::string name){ // 序列化基础数据类型
     try{
         __serializeAri(doc.RootElement(),data);
         // 保存 xml 文件
-        if(doc.SaveFile(name.c_str())) throw std::string("failed to save document");
+        if(doc.SaveFile(name.c_str())) throw std::string("failed to save file");
     }
     catch(std::string s){
         std::cerr << s << std::endl;
@@ -85,7 +85,7 @@ template<class T>
 void deserializeAri_xml(T &data, std::string name){ // 读取基础数据类型
     try{
         //读取xml文件
-        if(doc.LoadFile(name.c_str())) throw std::string("failed to read document");
+        if(doc.LoadFile(name.c_str())) throw std::string("failed to read file");
         __deserializeAri(doc.RootElement(),data);
     }catch(std::string s){
         std::cerr << s << std::endl;
@@ -259,7 +259,7 @@ void serializeStl_xml(T data, std::string name){ // 序列化容器
     doc.InsertEndChild(p); // 插入根结点
     try{
         __serializeStl(doc.RootElement(),data );
-        if(doc.SaveFile(name.c_str())) throw std::string("failed to write to the document");
+        if(doc.SaveFile(name.c_str())) throw std::string("failed to write to the file");
     }
     catch(std::string s){
         std::cerr << s << std::endl;
@@ -270,7 +270,7 @@ template<class T>
 void deserializeStl_xml(T &data, std::string name){ // 读取容器
     try{
         //读取xml文件
-        if(doc.LoadFile(name.c_str())) throw std::string("failed to read document");
+        if(doc.LoadFile(name.c_str())) throw std::string("failed to read file");
         __deserializeStl(doc.RootElement(),data);
     }catch(std::string s){
         std::cerr << s << std::endl;
