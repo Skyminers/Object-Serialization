@@ -34,16 +34,16 @@ void getValueFrom(T &data, int Tid,tinyxml2::XMLElement *p,std::string s){
         case doubleID: data =  (double)p->DoubleAttribute(s.c_str()); break;
         case longdoubleID: data =  (long double)p->LongDoubleAttribute(s.c_str()); break;
         default:
-            throw std::string("错误的Tid，没有找到对应类型");
+            throw std::string("rong Tid, no match type");
     }
 }
 
 template<typename T>
 void __serializeAri(tinyxml2::XMLElement *root,T data){
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     int Tid = getTypeId<T>(); // 获取data的类型
     //std::cerr << "Tid = " << Tid << std::endl;
-    if(Tid < charID || Tid > longdoubleID) throw std::string("不符合定义的数据类型");
+    if(Tid < charID || Tid > longdoubleID) throw std::string("undefined data type");
     // 获取定义类型，并且新建 xml 节点
     tinyxml2::XMLElement *p = doc.NewElement(getTypeName(Tid).c_str());
     p->SetAttribute("val",data); // 设置其属性值为 data
@@ -52,14 +52,14 @@ void __serializeAri(tinyxml2::XMLElement *root,T data){
 
 template<typename T>
 void __deserializeAri(tinyxml2::XMLElement *root,T &data){
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     int Tid = getTypeId<T>(); // 获取data的类型
-    if(Tid < charID || Tid > longdoubleID) throw std::string("不符合定义的数据类型");
+    if(Tid < charID || Tid > longdoubleID) throw std::string("undefined data type");
     // 获取类型名称，并且查询root中第一个符合条件的节点
     tinyxml2::XMLElement *p = root;
     if(std::string(root->Name()) != getTypeName(Tid)) // 判断是由于可能会直接将该数据节点指针传入
         p = root->FirstChildElement(getTypeName(Tid).c_str());
-    if(p == NULL) throw std::string("没有找到该节点");
+    if(p == NULL) throw std::string("cannot find this node");
     getValueFrom(data,Tid,p,"val");
     
 }
@@ -74,7 +74,7 @@ void serializeAri_xml(T data, std::string name){ // 序列化基础数据类型
     try{
         __serializeAri(doc.RootElement(),data);
         // 保存 xml 文件
-        if(doc.SaveFile(name.c_str())) throw std::string("文件保存失败");
+        if(doc.SaveFile(name.c_str())) throw std::string("failed to save document");
     }
     catch(std::string s){
         std::cerr << s << std::endl;
@@ -85,37 +85,37 @@ template<class T>
 void deserializeAri_xml(T &data, std::string name){ // 读取基础数据类型
     try{
         //读取xml文件
-        if(doc.LoadFile(name.c_str())) throw std::string("读入文件失败");
+        if(doc.LoadFile(name.c_str())) throw std::string("failed to read document");
         __deserializeAri(doc.RootElement(),data);
     }catch(std::string s){
         std::cerr << s << std::endl;
     }catch(int x){
-        if(x == ENDFLAG) std::cerr << "意外终止" << std::endl;
+        if(x == ENDFLAG) std::cerr << "unexpected abortion" << std::endl;
     }
 }
 
 // 要求容器中只能包含基础数据类型否则会编译失败
 
 void __serializeStl(tinyxml2::XMLElement *root, std::string data){ // 序列化STL容器 string
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     tinyxml2::XMLElement *p = doc.NewElement("std_string"); // 设置一级父节点
     p->SetAttribute("val",data.c_str());
     root->InsertEndChild(p);
 }
 
 void __deserializeStl(tinyxml2::XMLElement *root, std::string &data){ // 读取序列化STL容器 string
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     tinyxml2::XMLElement *p = root;
     // 该判断同__deserializeAri
     if(std::string(root->Name()) != std::string("std_string"))
         p = root->FirstChildElement("std_string"); // 找到 string 节点
-    if(p == NULL) throw std::string("没有找到 string 对应节点");
+    if(p == NULL) throw std::string("cannot find node matching string");
     data = p->Attribute("val");
 }
 
 template<typename T1, typename T2>
 void __serializeStl(tinyxml2::XMLElement *root, std::pair<T1,T2> data){ // 序列化STL容器 pair
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     tinyxml2::XMLElement *rt = doc.NewElement("std_pair"); // 设置一级父节点
     root->InsertEndChild(rt);
     std::string typeName1 = getTypeName(getTypeId<T1>()); // 获取该pair的两个类型
@@ -130,25 +130,25 @@ void __serializeStl(tinyxml2::XMLElement *root, std::pair<T1,T2> data){ // 序�
 
 template<typename T1, typename T2>
 void __deserializeStl(tinyxml2::XMLElement *root, std::pair<T1,T2> &data){ // 读取序列化STL容器 pair
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     tinyxml2::XMLElement *rt = root;
     // 该判断同__deserializeAri
     if(std::string(root->Name()) != std::string("std_pair"))
         rt = root->FirstChildElement("std_pair"); // 找到 pair 节点
-    if(rt == NULL) throw std::string("没有找到 pair 对应节点");
+    if(rt == NULL) throw std::string("cannot find node matching pair");
     std::string typeName1 = getTypeName(getTypeId<T1>()); // 获取该pair的两个类型
     std::string typeName2 = getTypeName(getTypeId<T2>());
     tinyxml2::XMLElement *p = rt->FirstChildElement(typeName1.c_str());
-    if(p == NULL) throw std::string("没有找到 first");
+    if(p == NULL) throw std::string("cannot find first");
     getValueFrom(data.first,getTypeId<T1>(),p,"val");
     p = p->NextSiblingElement();
-    if(p == NULL) throw std::string("没有找到 second");
+    if(p == NULL) throw std::string("cannot find second");
     getValueFrom(data.second,getTypeId<T2>(),p,"val");
 }
 
 template<typename T>
 void __serializeStl(tinyxml2::XMLElement *root,std::vector<T> data){ // 序列化STL容器 vector
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     tinyxml2::XMLElement *rt = doc.NewElement("std_vector"); // 设置一级父节点
     root->InsertEndChild(rt);
     std::string typeName = getTypeName(getTypeId<T>());
@@ -162,12 +162,12 @@ void __serializeStl(tinyxml2::XMLElement *root,std::vector<T> data){ // 序列�
 
 template<typename T>
 void __deserializeStl(tinyxml2::XMLElement *root, std::vector<T> &data){ // 读取序列化STL容器 vector
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     tinyxml2::XMLElement *rt = root;
     // 该判断同__deserializeAri
     if(std::string(root->Name()) != std::string("std_vector"))
         rt = root->FirstChildElement("std_vector"); // 找到 vector 节点
-    if(rt == NULL) throw std::string("没有找到 vector 对应节点");
+    if(rt == NULL) throw std::string("cannot find node matching vector");
     int Tid;
     std::string typeName = getTypeName(Tid = getTypeId<T>());
     tinyxml2::XMLElement *p = rt->FirstChildElement(typeName.c_str()); // 找到 vector 节点内的元素
@@ -182,7 +182,7 @@ void __deserializeStl(tinyxml2::XMLElement *root, std::vector<T> &data){ // 读�
 
 template<typename T>
 void __serializeStl(tinyxml2::XMLElement *root, std::list<T> data){ // 序列化STL容器 list
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     tinyxml2::XMLElement *rt = doc.NewElement("std_list"); // 设置一级父节点
     root->InsertEndChild(rt);
     std::string typeName = getTypeName(getTypeId<T>());
@@ -196,12 +196,12 @@ void __serializeStl(tinyxml2::XMLElement *root, std::list<T> data){ // 序列化
 
 template<typename T>
 void __deserializeStl(tinyxml2::XMLElement *root,std::list<T> &data){ // 序列化STL容器 list
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     tinyxml2::XMLElement *rt = root;
     // 该判断同__deserializeAri
     if(std::string(root->Name()) != std::string("std_list"))
         rt = root->FirstChildElement("std_list"); // 找到 list 节点
-    if(rt == NULL) throw std::string("没有找到 list 对应节点");
+    if(rt == NULL) throw std::string("cannot find node matching list");
     int Tid;
     std::string typeName = getTypeName(Tid = getTypeId<T>());
     tinyxml2::XMLElement *p = rt->FirstChildElement(typeName.c_str()); // 找到 list 节点内的元素
@@ -216,7 +216,7 @@ void __deserializeStl(tinyxml2::XMLElement *root,std::list<T> &data){ // 序列�
 
 template<typename T1, typename T2>
 void __serializeStl(tinyxml2::XMLElement *root,std::map<T1,T2> data){ // 序列化STL容器 map
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     tinyxml2::XMLElement *rt = doc.NewElement("std_map"); // 设置一级父节点
     root->InsertEndChild(rt);
     for(auto it = data.begin(); it != data.end(); ++ it){
@@ -231,12 +231,12 @@ void __serializeStl(tinyxml2::XMLElement *root,std::map<T1,T2> data){ // 序列�
 
 template<typename T1, typename T2>
 void __deserializeStl(tinyxml2::XMLElement *root,std::map<T1,T2> &data){ // 读取序列化STL容器 map
-    if(root == NULL) throw std::string("错误，root 指针为 NULL");
+    if(root == NULL) throw std::string("error:root pointer is NULL");
     tinyxml2::XMLElement *rt = root;
     // 该判断同__deserializeAri
     if(std::string(root->Name()) != std::string("std_map"))
         rt = root->FirstChildElement("std_map"); // 找到 string 节点
-    if(rt == NULL) throw std::string("没有找到 map 对应节点");
+    if(rt == NULL) throw std::string("cannot find node matching map");
     tinyxml2::XMLElement *p = rt->FirstChildElement("pair"); // 找到 map 节点内的元素
     data.clear(); // 清空 map ， 准备储存数据
     int Tid1 = getTypeId<T1>(); T1 tmp1;
@@ -259,7 +259,7 @@ void serializeStl_xml(T data, std::string name){ // 序列化容器
     doc.InsertEndChild(p); // 插入根结点
     try{
         __serializeStl(doc.RootElement(),data );
-        if(doc.SaveFile(name.c_str())) throw std::string("写入文件失败");
+        if(doc.SaveFile(name.c_str())) throw std::string("failed to write to the document");
     }
     catch(std::string s){
         std::cerr << s << std::endl;
@@ -270,7 +270,7 @@ template<class T>
 void deserializeStl_xml(T &data, std::string name){ // 读取容器
     try{
         //读取xml文件
-        if(doc.LoadFile(name.c_str())) throw std::string("读入文件失败");
+        if(doc.LoadFile(name.c_str())) throw std::string("failed to read document");
         __deserializeStl(doc.RootElement(),data);
     }catch(std::string s){
         std::cerr << s << std::endl;
