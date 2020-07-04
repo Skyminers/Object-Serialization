@@ -133,7 +133,7 @@ void binaryToStruct(std::string name){
     }catch(std::string s){
         std::cerr << s << std::endl;
     }catch(int x){
-        if(x == ENDFLAG) std::cerr << "意外终止" << std::endl;
+        if(x == ENDFLAG) std::cerr << "unexpected abortion" << std::endl;
     }
 }
 
@@ -175,7 +175,7 @@ void structToXml(std::string name){
         // xml::__serializeStl(root,ClassName.variableName); (如果是STL容器)
 
 #endif
-        if(xml::doc.SaveFile(name.c_str())) throw std::string("写入文件失败");
+        if(xml::doc.SaveFile(name.c_str())) throw std::string("failed to write data");
     }
     catch(std::string s){
         std::cerr << s << std::endl;
@@ -184,14 +184,14 @@ void structToXml(std::string name){
 
 template<typename T>
 inline void deseriXmlAri(tinyxml2::XMLElement* &p, T &x){
-    if(p == NULL) throw std::string("错误，p指针为NULL");
+    if(p == NULL) throw std::string("error:p is NULL");
     xml::__deserializeAri(p,x);
     p=p->NextSiblingElement();
 }
 
 template<typename T>
 inline void deseriXmlStl(tinyxml2::XMLElement* &p, T &x){
-    if(p == NULL) throw std::string("错误，p指针为NULL");
+    if(p == NULL) throw std::string("error:p is NULL");
     xml::__deserializeStl(p,x);
     p=p->NextSiblingElement();
 }
@@ -199,7 +199,7 @@ inline void deseriXmlStl(tinyxml2::XMLElement* &p, T &x){
 void xmlToStruct(std::string name){
     try{
         //读取xml文件
-        if(xml::doc.LoadFile(name.c_str())) throw std::string("读入文件失败");
+        if(xml::doc.LoadFile(name.c_str())) throw std::string("failed to read text");
         tinyxml2::XMLElement *root = xml::doc.RootElement();
         tinyxml2::XMLElement *p = root->FirstChildElement();
 #ifndef USER_STRUCT
