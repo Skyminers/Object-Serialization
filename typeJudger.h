@@ -27,7 +27,7 @@ int getTypeId(){ // 该函数返回 T 的类型 ID
     if(typeSame<T,float>()) return floatID;
     if(typeSame<T,double>()) return doubleID;
     if(typeSame<T,long double>()) return longdoubleID;
-    throw std::string("错误的传入类型，无法识别");
+    throw std::string("wrong type");
 }
 
 std::string getTypeName(int Tid){
@@ -46,7 +46,7 @@ std::string getTypeName(int Tid){
         case doubleID: return "double";
         case longdoubleID: return "longDouble";
         default:
-            throw std::string("错误的Tid，没有找到对应类型");
+            throw std::string("wrong Tid, no match type");
     }
 }
 
