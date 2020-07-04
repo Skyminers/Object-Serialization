@@ -8,7 +8,7 @@ Buffer::Buffer(){
 
 void Buffer::readFromFile(std::string fileName){// 该函数从文件中读入数据
     FILE* in = fopen(fileName.c_str(),"rb"); // 打开文件
-    if(!in) throw std::string("文件打开失败");
+    if(!in) throw std::string("failed to open file");
     // 读入2048位二进制
     fread(buf,sizeof(char),sizeof(char)*256,in);
     fclose(in);
@@ -16,14 +16,14 @@ void Buffer::readFromFile(std::string fileName){// 该函数从文件中读入�
 
 void Buffer::printToFile(std::string fileName){// 与上个函数类似，该函数输出到文件
     FILE* out = fopen(fileName.c_str(),"wb");
-    if(!out) throw std::string("文件创建/写入失败");
+    if(!out) throw std::string("failed to create file");
     fwrite(buf,sizeof(char),sizeof(char)*256,out);
     fclose(out);
 }
 
 unsigned long long Buffer::getNextN(int n){ // 获取二进制文件中由[p..p+n)部分组成的数字
-    if(p+n >= 256*8) throw std::string("获取字符越界");
-    if(n > 64) throw std::string("获取范围过大，最多获取64位");
+    if(p+n >= 256*8) throw std::string("chars are out of range");
+    if(n > 64) throw std::string("out of range, the most is 64-byte");
     unsigned long long ret = 0;
     // 假设顺序为 buf[0] 0 - 7 , buf[1] 0 - 7
     for(int i=0;i<n;++p,++i){
