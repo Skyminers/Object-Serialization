@@ -23,7 +23,7 @@ template<typename T>
 void __serializeAri(T data){
     int Tid = getTypeId<T>(); // 获取data的类型
     //std::cerr << "Tid = " << Tid << std::endl;
-    if(Tid < charID || Tid > longdoubleID) throw std::string("不符合定义的数据类型");
+    if(Tid < charID || Tid > longdoubleID) throw std::string("undefined type");
 
     buf.setNext(0);buf.setNext(0); // 设置格式首两位为基础数据类型
     buf.setNBits(4,Tid); // 设置格式后四位为具体数据类型
@@ -61,10 +61,10 @@ void __deserializeAri(T &data){
     int Tid = getTypeId<T>(); // 获取data的类型
     int fid = buf.getNextN(2); // 获取数据分类id
     if(fid == 3) throw ENDFLAG;
-    if(fid != 0) throw std::string("错误的数据分类");
-    if(Tid != buf.getNextN(4)) throw std::string("传入数据类型与文件中数据类型不符");
+    if(fid != 0) throw std::string("wrong type");
+    if(Tid != buf.getNextN(4)) throw std::string("data type mismatch");
     
-    if(Tid < charID || Tid > longdoubleID) throw std::string("不符合定义的数据类型");
+    if(Tid < charID || Tid > longdoubleID) throw std::string("undefined type");
     switch(Tid){ // 该switch语句根据数据的位数，决定接下来取多少位
         case charID: case uncharID:
             data = buf.getNextN(8); // 8 位
@@ -115,7 +115,7 @@ void deserializeAri(T &data, std::string name){ // 读取基础数据类型
     }catch(std::string s){
         std::cerr << s << std::endl;
     }catch(int x){
-        if(x == ENDFLAG) std::cerr << "意外终止" << std::endl;
+        if(x == ENDFLAG) std::cerr << "unexpected abortion" << std::endl;
     }
 }
 
@@ -131,8 +131,8 @@ void __serializeStl(std::string data){ // 序列化STL容器 string
 }
 
 void __deserializeStl(std::string &data){ // 读取序列化STL容器 string
-    if(buf.getNextN(2) != 1) throw std::string("错误的数据种类");
-    if(buf.getNextN(4) != stringID-stringID) throw std::string("错误的数据类型");
+    if(buf.getNextN(2) != 1) throw std::string("wrong class");
+    if(buf.getNextN(4) != stringID-stringID) throw std::string("wrong type");
     data.clear(); // 清空 string
     char tmp;
     try{ // 利用 try catch 结构进行边界判定
@@ -142,7 +142,7 @@ void __deserializeStl(std::string &data){ // 读取序列化STL容器 string
         }
     }catch(int x){
         if(x == ENDFLAG) return ;
-        else std::cerr << "未知的错误" << std::endl;
+        else std::cerr << "unknown error" << std::endl;
     }catch(std::string s){
         std::cerr << s << std::endl;
     }
@@ -159,8 +159,8 @@ void __serializeStl(std::pair<T1,T2> data){ // 序列化STL容器 pair
 
 template<typename T1, typename T2>
 void __deserializeStl(std::pair<T1,T2> &data){ // 读取序列化STL容器 pair
-    if(buf.getNextN(2) != 1) throw std::string("错误的数据种类");
-    if(buf.getNextN(4) != pairID-stringID) throw std::string("错误的数据类型");
+    if(buf.getNextN(2) != 1) throw std::string("wrong class");
+    if(buf.getNextN(4) != pairID-stringID) throw std::string("wrong type");
     __deserializeAri(data.first); // 依次读取两个序列化数据
     __deserializeAri(data.second);
 }
@@ -176,8 +176,8 @@ void __serializeStl(std::vector<T> data){ // 序列化STL容器 vector
 
 template<typename T>
 void __deserializeStl(std::vector<T> &data){ // 读取序列化STL容器 vector
-    if(buf.getNextN(2) != 1) throw std::string("错误的数据种类");
-    if(buf.getNextN(4) != vectorID-stringID) throw std::string("错误的数据类型");
+    if(buf.getNextN(2) != 1) throw std::string("wrong class");
+    if(buf.getNextN(4) != vectorID-stringID) throw std::string("wrong type");
     data.clear(); // 清空 vector
     T tmp;
     try{ // 利用 try catch 结构进行边界判定
@@ -187,7 +187,7 @@ void __deserializeStl(std::vector<T> &data){ // 读取序列化STL容器 vector
         }
     }catch(int x){
         if(x == ENDFLAG) return ;
-        else std::cerr << "未知的错误" << std::endl;
+        else std::cerr << "unknown error" << std::endl;
     }catch(std::string s){
         std::cerr << s << std::endl;
     }
@@ -204,8 +204,8 @@ void __serializeStl(std::list<T> data){ // 序列化STL容器 list
 
 template<typename T>
 void __deserializeStl(std::list<T> &data){ // 序列化STL容器 list
-    if(buf.getNextN(2) != 1) throw std::string("错误的数据种类");
-    if(buf.getNextN(4) != listID-stringID) throw std::string("错误的数据类型");
+    if(buf.getNextN(2) != 1) throw std::string("wrong class");
+    if(buf.getNextN(4) != listID-stringID) throw std::string("wrong type");
     data.clear(); // 清空 list
     T tmp;
     try{ // 利用 try catch 结构进行边界判定
@@ -215,7 +215,7 @@ void __deserializeStl(std::list<T> &data){ // 序列化STL容器 list
         }
     }catch(int x){
         if(x == ENDFLAG) return ;
-        else std::cerr << "未知的错误" << std::endl;
+        else std::cerr << "unknown error" << std::endl;
     }catch(std::string s){
         std::cerr << s << std::endl;
     }
@@ -234,8 +234,8 @@ void __serializeStl(std::map<T1,T2> data){ // 序列化STL容器 map
 
 template<typename T1, typename T2>
 void __deserializeStl(std::map<T1,T2> &data){ // 读取序列化STL容器 map
-    if(buf.getNextN(2) != 1) throw std::string("错误的数据种类");
-    if(buf.getNextN(4) != mapID-stringID) throw std::string("错误的数据类型");
+    if(buf.getNextN(2) != 1) throw std::string("wrong class");
+    if(buf.getNextN(4) != mapID-stringID) throw std::string("wrong type");
     data.clear();
     T1 x; T2 y;
     try{ // 利用 try catch 结构进行边界判定
@@ -246,7 +246,7 @@ void __deserializeStl(std::map<T1,T2> &data){ // 读取序列化STL容器 map
         }
     }catch(int x){
         if(x == ENDFLAG) return ;
-        else std::cerr << "未知的错误" << std::endl;
+        else std::cerr << "unknown error" << std::endl;
     }catch(std::string s){
         std::cerr << s << std::endl;
     }
