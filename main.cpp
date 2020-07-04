@@ -5,6 +5,99 @@
 #include "userDefined.h"
 
 int main(){
+    /* test part */
+
+    //二进制的序列化
+
+    //测试基础类型
+    char t_char = 'a';
+    unsigned char t_uchar = 'b';
+
+    short t_short_min = -32768, t_short_max = 32767;
+    unsigned short t_ushort = 65535;
+
+    int t_int_min = -2147483648, t_int_max = 2147483647;
+    unsigned int t_uint = 429496729;
+
+    long t_long_min = -2147483648L, t_long_max = 2147483647L;
+    unsigned long t_ulong = 4294967295UL;
+
+    long long t_llong_min = -9223372036854775808LL, 
+              t_llong_max = 9223372036854775807LL;
+    unsigned long long t_ullong = 18446744073709551615ULL;
+
+    float t_float = 321.123456;
+    double t_double = 321.123456789012345;
+    long double t_ldouble = 321.123456789012345678;
+
+    std::cout<<"Before Serialization:"<<endl;
+    printf("t_char = %c, t_uchar = %c\n",t_char, t_uchar);
+    printf("t_short_min = %d, t_short_max = %d, t_ushort_ = %u\n", t_short_min, t_short_min, t_ushort);
+    printf("t_int_min = %d, t_int_max = %d, t_uint = %u\n", t_int_min, t_int_max, t_uint);
+    printf("t_long_min = %ld, t_long_max = %ld, t_ulong = %lu\n", t_long_min, t_long_max, t_ulong);
+    printf("t_llong_min = %lld, t_llong_max = %lld, t_ullong = %llu\n", t_llong_min, t_llong_max, t_ullong);
+    printf("t_float = %.6f, t_double = %.15lf, t_ldouble = %.19Lf\n", t_float, t_double, t_ldouble);
+
+    //序列化
+    binary::serializeAri(t_char, "data.bin");
+    binary::deserializeAri(t_char, "data.bin");
+
+    binary::serializeAri(t_uchar, "data.bin");
+    binary::deserializeAri(t_uchar, "data.bin");
+
+    binary::serializeAri(t_short_min, "data.bin");
+    binary::deserializeAri(t_short_min, "data.bin");
+
+    binary::serializeAri(t_short_max, "data.bin");
+    binary::deserializeAri(t_short_max, "data.bin");
+
+    binary::serializeAri(t_ushort, "data.bin");
+    binary::deserializeAri(t_ushort, "data.bin");
+
+    binary::serializeAri(t_int_min, "data.bin");
+    binary::deserializeAri(t_int_min, "data.bin");
+
+    binary::serializeAri(t_int_max, "data.bin");
+    binary::deserializeAri(t_int_max, "data.bin");
+
+    binary::serializeAri(t_uint, "data.bin");
+    binary::deserializeAri(t_uint, "data.bin");
+
+    binary::serializeAri(t_long_min, "data.bin");
+    binary::deserializeAri(t_long_min, "data.bin");
+
+    binary::serializeAri(t_long_max, "data.bin");
+    binary::deserializeAri(t_long_max, "data.bin");
+
+    binary::serializeAri(t_ulong, "data.bin");
+    binary::deserializeAri(t_ulong, "data.bin");
+
+    binary::serializeAri(t_llong_min, "data.bin");
+    binary::deserializeAri(t_llong_min, "data.bin");
+
+    binary::serializeAri(t_llong_max, "data.bin");
+    binary::deserializeAri(t_llong_max, "data.bin");
+
+    binary::serializeAri(t_ullong, "data.bin");
+    binary::deserializeAri(t_ullong, "data.bin");
+
+    binary::serializeAri(t_float, "data.bin");
+    binary::deserializeAri(t_float, "data.bin");
+
+    binary::serializeAri(t_double, "data.bin");
+    binary::deserializeAri(t_double, "data.bin");
+
+    binary::serializeAri(t_ldouble, "data.bin");
+    binary::deserializeAri(t_ldouble, "data.bin");
+
+    std::cout<<endl<<"After Serialization:"<<endl;
+    printf("t_char = %c, t_uchar = %c\n",t_char, t_uchar);
+    printf("t_short_min = %d, t_short_max = %d, t_ushort_ = %u\n", t_short_min, t_short_min, t_ushort);
+    printf("t_int_min = %d, t_int_max = %d, t_uint = %u\n", t_int_min, t_int_max, t_uint);
+    printf("t_long_min = %ld, t_long_max = %ld, t_ulong = %lu\n", t_long_min, t_long_max, t_ulong);
+    printf("t_llong_min = %lld, t_llong_max = %lld, t_ullong = %llu\n", t_llong_min, t_llong_max, t_ullong);
+    printf("t_float = %.6f, t_double = %.15lf, t_ldouble = %.19Lf\n", t_float, t_double, t_ldouble);
+
 
     unsigned long long x = 18446744073709551615ULL,y = 0;
     printf("%llu\n",x);
@@ -67,4 +160,6 @@ int main(){
                             userDef::Base2._double,
                             userDef::Base2._vector_int[0],
                             userDef::Base2._vector_int[1]);
+
+    return 0;
 }
