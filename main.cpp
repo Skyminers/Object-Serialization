@@ -48,54 +48,71 @@ void binaryTest(){
 
     //序列化和反序列化
     binary::serializeAri(t_char, "data.bin");
+    t_char = 0;
     binary::deserializeAri(t_char, "data.bin");
 
     binary::serializeAri(t_uchar, "data.bin");
+    t_uchar = 0;
     binary::deserializeAri(t_uchar, "data.bin");
 
     binary::serializeAri(t_short_min, "data.bin");
+    t_short_min = 0;
     binary::deserializeAri(t_short_min, "data.bin");
 
     binary::serializeAri(t_short_max, "data.bin");
+    t_short_max = 0;
     binary::deserializeAri(t_short_max, "data.bin");
 
     binary::serializeAri(t_ushort, "data.bin");
+    t_ushort = 0;
     binary::deserializeAri(t_ushort, "data.bin");
 
     binary::serializeAri(t_int_min, "data.bin");
+    t_int_min = 0;
     binary::deserializeAri(t_int_min, "data.bin");
 
     binary::serializeAri(t_int_max, "data.bin");
+    t_int_max = 0;
     binary::deserializeAri(t_int_max, "data.bin");
 
     binary::serializeAri(t_uint, "data.bin");
+    t_uint = 0;
     binary::deserializeAri(t_uint, "data.bin");
 
     binary::serializeAri(t_long_min, "data.bin");
+    t_long_min = 0;
     binary::deserializeAri(t_long_min, "data.bin");
 
     binary::serializeAri(t_long_max, "data.bin");
+    t_long_max = 0;
     binary::deserializeAri(t_long_max, "data.bin");
 
     binary::serializeAri(t_ulong, "data.bin");
+    t_ulong = 0;
     binary::deserializeAri(t_ulong, "data.bin");
 
     binary::serializeAri(t_llong_min, "data.bin");
+    t_llong_min = 0;
     binary::deserializeAri(t_llong_min, "data.bin");
 
     binary::serializeAri(t_llong_max, "data.bin");
+    t_llong_max = 0;
     binary::deserializeAri(t_llong_max, "data.bin");
 
     binary::serializeAri(t_ullong, "data.bin");
+    t_ullong = 0;
     binary::deserializeAri(t_ullong, "data.bin");
 
     binary::serializeAri(t_float, "data.bin");
+    t_float = 0;
     binary::deserializeAri(t_float, "data.bin");
 
     binary::serializeAri(t_double, "data.bin");
+    t_double = 0;
     binary::deserializeAri(t_double, "data.bin");
 
     binary::serializeAri(t_ldouble, "data.bin");
+    t_ldouble = 0;
     binary::deserializeAri(t_ldouble, "data.bin");
 
     std::cout<<endl<<"After Serialization:"<<endl;
@@ -185,46 +202,56 @@ void binaryTest(){
 
     cout<<endl<<"after serialization:"<<endl;
     binary::serializeStl(t_string, "data.bin");
+    t_string = "";
     binary::deserializeStl(t_string, "data.bin");
     cout<<"t_string:"<<t_string<<endl;
 
     binary::serializeStl(t_pair_ll_ll, "data.bin");
+    t_pair_ll_ll.first = t_pair_ll_ll.second = 0;
     binary::deserializeStl(t_pair_ll_ll, "data.bin");
     printf("t_pair_ll_ll:(%lld, %lld)\n", t_pair_ll_ll.first, t_pair_ll_ll.second);
 
     binary::serializeStl(t_pair_ld_ld, "data.bin");
-    binary::deserializeStl(t_pair_ll_ld, "data.bin");
+    t_pair_ld_ld.first = t_pair_ld_ld.second = 0;
+    binary::deserializeStl(t_pair_ld_ld, "data.bin");
     printf("t_pair_ld_ld:(%0.18Lf, %0.18Lf)\n", t_pair_ld_ld.first, t_pair_ld_ld.second);
 
-    binary::serializeStl(t_pair_ld_ld, "data.bin");
-    binary::deserializeStl(t_pair_ld_ld, "data.bin");
+    binary::serializeStl(t_pair_ll_ld, "data.bin");
+    t_pair_ll_ld.first = t_pair_ll_ld.second = 0;
+    binary::deserializeStl(t_pair_ll_ld, "data.bin");
     printf("t_pair_ll_ld:(%lld, %0.18Lf)\n", t_pair_ll_ld.first, t_pair_ll_ld.second);
 
     binary::serializeStl(t_vector_ll, "data.bin");
+    t_vector_ll.clear();
     binary::deserializeStl(t_vector_ll, "data.bin");
     printf("t_vector_ll:{%lld, %lld, %lld}\n", t_vector_ll[0], t_vector_ll[1], t_vector_ll[2]);
 
     binary::serializeStl(t_vector_ld, "data.bin");
+    t_vector_ld.clear();
     binary::deserializeStl(t_vector_ld, "data.bin");
     printf("t_vector_ld:{%0.18Lf, %0.18Lf, %0.18Lf}\n", t_vector_ld[0], t_vector_ld[1], t_vector_ld[2]);
 
     binary::serializeStl(t_list_ll, "data.bin");
+    t_list_ll.clear();
     binary::deserializeStl(t_list_ll, "data.bin");
     plist_ll = t_list_ll.begin();
     printf("t_list_ll:{%lld, %lld, %lld}\n", *plist_ll++, *plist_ll++, *plist_ll++);
 
     binary::serializeStl(t_list_ld,"data.bin");
+    t_list_ld.clear();
     binary::deserializeStl(t_list_ld, "data.bin");
     plist_ld= t_list_ld.begin();
     printf("t_list_ld:{%.18Lf, %.18Lf, %.18Lf}\n", *plist_ld++, *plist_ld++, *plist_ld++);
 
     binary::serializeStl(t_map_ll_ll, "data.bin");
+    t_map_ll_ll.clear();
     binary::deserializeStl(t_map_ll_ll, "data.bin");
     p_map_ll_ll = t_map_ll_ll.begin();
     printf("t_map_ll_ll:{(%lld, %lld), ", p_map_ll_ll->first, (p_map_ll_ll)->second); p_map_ll_ll++;
     printf("(%lld, %lld)}\n",p_map_ll_ll->first, (p_map_ll_ll)->second ); 
 
     binary::serializeStl(t_map_ld_ld, "data.bin");
+    t_map_ld_ld.clear();
     binary::deserializeStl(t_map_ld_ld, "data.bin");
     p_map_ld_ld = t_map_ld_ld.begin();
     printf("t_map_ld_ld:{(%.15Lf, %.15Lf),", p_map_ld_ld->first, (p_map_ld_ld)->second);p_map_ld_ld++;
@@ -232,6 +259,7 @@ void binaryTest(){
     printf("(%.15Lf, %.15Lf)}\n",p_map_ld_ld->first, p_map_ld_ld->second);   
 
     binary::serializeStl(t_map_ll_ld, "data.bin");
+    t_map_ll_ld.clear();
     binary::deserializeStl(t_map_ll_ld, "data.bin");
     p_map_ll_ld = t_map_ll_ld.begin();
     printf("t_map_ll_ld:{(%lld, %.15Lf),", p_map_ll_ld->first, (p_map_ll_ld)->second);p_map_ll_ld++;
@@ -359,54 +387,71 @@ void xmlTest(){
 
     //序列化和反序列化
     xml::serializeAri_xml(t_char, "data.xml");
+    t_char = 0;
     xml::deserializeAri_xml(t_char, "data.xml");
 
     xml::serializeAri_xml(t_uchar, "data.xml");
+    t_uchar = 0;
     xml::deserializeAri_xml(t_uchar, "data.xml");
 
     xml::serializeAri_xml(t_short_min, "data.xml");
+    t_short_min = 0;
     xml::deserializeAri_xml(t_short_min, "data.xml");
 
     xml::serializeAri_xml(t_short_max, "data.xml");
+    t_short_max = 0;
     xml::deserializeAri_xml(t_short_max, "data.xml");
 
     xml::serializeAri_xml(t_ushort, "data.xml");
+    t_ushort = 0;
     xml::deserializeAri_xml(t_ushort, "data.xml");
 
     xml::serializeAri_xml(t_int_min, "data.xml");
+    t_int_min = 0;
     xml::deserializeAri_xml(t_int_min, "data.xml");
 
     xml::serializeAri_xml(t_int_max, "data.xml");
+    t_int_max = 0;
     xml::deserializeAri_xml(t_int_max, "data.xml");
 
     xml::serializeAri_xml(t_uint, "data.xml");
+    t_uint = 0;
     xml::deserializeAri_xml(t_uint, "data.xml");
 
     xml::serializeAri_xml(t_long_min, "data.xml");
+    t_long_min = 0;
     xml::deserializeAri_xml(t_long_min, "data.xml");
 
     xml::serializeAri_xml(t_long_max, "data.xml");
+    t_long_max = 0;
     xml::deserializeAri_xml(t_long_max, "data.xml");
 
     xml::serializeAri_xml(t_ulong, "data.xml");
+    t_ulong = 0;
     xml::deserializeAri_xml(t_ulong, "data.xml");
 
     xml::serializeAri_xml(t_llong_min, "data.xml");
+    t_llong_min = 0;
     xml::deserializeAri_xml(t_llong_min, "data.xml");
 
     xml::serializeAri_xml(t_llong_max, "data.xml");
+    t_llong_max = 0;
     xml::deserializeAri_xml(t_llong_max, "data.xml");
 
     xml::serializeAri_xml(t_ullong, "data.xml");
+    t_ullong = 0;
     xml::deserializeAri_xml(t_ullong, "data.xml");
 
     xml::serializeAri_xml(t_float, "data.xml");
+    t_float = 0;
     xml::deserializeAri_xml(t_float, "data.xml");
 
     xml::serializeAri_xml(t_double, "data.xml");
+    t_double = 0;
     xml::deserializeAri_xml(t_double, "data.xml");
 
     xml::serializeAri_xml(t_ldouble, "data.xml");
+    t_ldouble = 0;
     xml::deserializeAri_xml(t_ldouble, "data.xml");
 
     std::cout<<endl<<"After Serialization:"<<endl;
@@ -496,46 +541,56 @@ void xmlTest(){
 
     cout<<endl<<"after serialization:"<<endl;
     xml::serializeStl_xml(t_string, "data.xml");
+    t_string = "";
     xml::deserializeStl_xml(t_string, "data.xml");
     cout<<"t_string:"<<t_string<<endl;
 
     xml::serializeStl_xml(t_pair_ll_ll, "data.xml");
+    t_pair_ll_ll.first = t_pair_ll_ll.second = 0;
     xml::deserializeStl_xml(t_pair_ll_ll, "data.xml");
     printf("t_pair_ll_ll:(%lld, %lld)\n", t_pair_ll_ll.first, t_pair_ll_ll.second);
 
     xml::serializeStl_xml(t_pair_ld_ld, "data.xml");
-    xml::deserializeStl_xml(t_pair_ll_ld, "data.xml");
+    t_pair_ld_ld.first = t_pair_ld_ld.second = 0;
+    xml::deserializeStl_xml(t_pair_ld_ld, "data.xml");
     printf("t_pair_ld_ld:(%0.18Lf, %0.18Lf)\n", t_pair_ld_ld.first, t_pair_ld_ld.second);
 
-    xml::serializeStl_xml(t_pair_ld_ld, "data.xml");
-    xml::deserializeStl_xml(t_pair_ld_ld, "data.xml");
+    xml::serializeStl_xml(t_pair_ll_ld, "data.xml");
+    t_pair_ll_ld.first = t_pair_ll_ld.second = 0;
+    xml::deserializeStl_xml(t_pair_ll_ld, "data.xml");
     printf("t_pair_ll_ld:(%lld, %0.18Lf)\n", t_pair_ll_ld.first, t_pair_ll_ld.second);
 
     xml::serializeStl_xml(t_vector_ll, "data.xml");
+    t_vector_ll.clear();
     xml::deserializeStl_xml(t_vector_ll, "data.xml");
     printf("t_vector_ll:{%lld, %lld, %lld}\n", t_vector_ll[0], t_vector_ll[1], t_vector_ll[2]);
 
     xml::serializeStl_xml(t_vector_ld, "data.xml");
+    t_vector_ld.clear();
     xml::deserializeStl_xml(t_vector_ld, "data.xml");
     printf("t_vector_ld:{%0.18Lf, %0.18Lf, %0.18Lf}\n", t_vector_ld[0], t_vector_ld[1], t_vector_ld[2]);
 
     xml::serializeStl_xml(t_list_ll, "data.xml");
+    t_list_ll.clear();
     xml::deserializeStl_xml(t_list_ll, "data.xml");
     plist_ll = t_list_ll.begin();
     printf("t_list_ll:{%lld, %lld, %lld}\n", *plist_ll++, *plist_ll++, *plist_ll++);
 
     xml::serializeStl_xml(t_list_ld,"data.xml");
+    t_list_ld.clear();
     xml::deserializeStl_xml(t_list_ld, "data.xml");
     plist_ld= t_list_ld.begin();
     printf("t_list_ld:{%.18Lf, %.18Lf, %.18Lf}\n", *plist_ld++, *plist_ld++, *plist_ld++);
 
     xml::serializeStl_xml(t_map_ll_ll, "data.xml");
+    t_map_ll_ll.clear();
     xml::deserializeStl_xml(t_map_ll_ll, "data.xml");
     p_map_ll_ll = t_map_ll_ll.begin();
     printf("t_map_ll_ll:{(%lld, %lld), ", p_map_ll_ll->first, (p_map_ll_ll)->second); p_map_ll_ll++;
     printf("(%lld, %lld)}\n",p_map_ll_ll->first, (p_map_ll_ll)->second ); 
 
     xml::serializeStl_xml(t_map_ld_ld, "data.xml");
+    t_map_ld_ld.clear();
     xml::deserializeStl_xml(t_map_ld_ld, "data.xml");
     p_map_ld_ld = t_map_ld_ld.begin();
     printf("t_map_ld_ld:{(%.15Lf, %.15Lf),", p_map_ld_ld->first, (p_map_ld_ld)->second);p_map_ld_ld++;
@@ -543,6 +598,7 @@ void xmlTest(){
     printf("(%.15Lf, %.15Lf)}\n",p_map_ld_ld->first, p_map_ld_ld->second);   
 
     xml::serializeStl_xml(t_map_ll_ld, "data.xml");
+    t_map_ll_ld.clear();
     xml::deserializeStl_xml(t_map_ll_ld, "data.xml");
     p_map_ll_ld = t_map_ll_ld.begin();
     printf("t_map_ll_ld:{(%lld, %.15Lf),", p_map_ll_ld->first, (p_map_ll_ld)->second);p_map_ll_ld++;
