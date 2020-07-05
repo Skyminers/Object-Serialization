@@ -18,6 +18,8 @@
 * typeJudger.h : 该文件封装对于变量类型的判断的函数
 * userDefined.h : 该文件提供了对于用户自定义struct的序列化的支持
 * tinyxml2.h & tinyxml2.cpp : 提供了关于xml文件的创建、编辑、查询、保存的功能.
+* test.h & test.cpp : 实现整个工程的测试，包含基础数据类型、容器类型、用户自定义类型的两种序列化(二进制与xml)
+* base64.h & base64.cpp : 实现将xml文件用base64编码在解密，编码后的文件存储在encode_data.txt中，解密后的文件存储在decode_data.xml中
 
 序列化支持下列
 
@@ -164,3 +166,16 @@ xml 的编码方式简单很多，主要是tinyxml2的使用
     <std_map/>
 </serialization>
 
+## base64编码方式
+
+*编码过程
+每次读取待编码文件的3个字节，共24bits
+每隔6bits插入2个bits的0， 扩充成32bits
+根据base64表，转换成4个相应的字符
+如果文件末尾不足3个字节，用padding字符'='进行填充
+
+*解码过程
+每次读取待解码文件的4个字节，忽略掉填充字符'='
+将这4个字符，经base64查找到它们的索引，共32bits
+去除掉每个字节的最高2位，将32bits转换为24bits
+再将这24bits划分为3个字节，变成3个字符
