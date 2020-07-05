@@ -68,13 +68,12 @@
     80 位
 
 ### **容器**:
-|类型|编号|相对编号|
-|---|---|---|---|
-|`std::string` |13 | 0|
-|`std::pair`   |14 | 1|
-|` std::vector`| 15|  2|
-|`std::list`|   16|  3|
-|`std::map`   | 17|  4|
+
+* `std::string`  13  0
+* `std::pair`    14  1
+* ` std::vector` 15  2
+* `std::list`    16  3
+* `std::map`     17  4
 
 容器：
 * 5 种容器
