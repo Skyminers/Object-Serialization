@@ -7,6 +7,8 @@
 
 * github网址：https://github.com/Skyminers/Object-Serialization
 
+**本次代码编码方式为UTF-8，注释采用中文编写，如果出现乱码请用UTF-8编码或进入本次工程的github网址进行查看**
+
 ## 文件结构
 
 ![OOP大作业.png](https://i.loli.net/2020/07/05/FeHYLiVTnQwqWUc.png)
