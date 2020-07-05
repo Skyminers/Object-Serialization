@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<serialization>
+    <char val="0"/>
+    <unsignedChar val="0"/>
+    <short val="0"/>
+    <unsigedShort val="0"/>
+    <int val="0"/>
+    <unsignedInt val="0"/>
+    <long val="0"/>
+    <unsignedLong val="0"/>
+    <longLong val="654321"/>
+    <unsignedLongLong val="0"/>
+    <float val="0"/>
+    <double val="80.319999999999993"/>
+    <longDouble val="0"/>
+    <std_string val="Lisa"/>
+    <std_pair>
+        <int val="123456"/>
+        <int val="654321"/>
+    </std_pair>
+    <std_vector/>
+    <std_list>
+        <int val="202000"/>
+        <int val="202001"/>
+        <int val="202002"/>
+        <int val="202003"/>
+        <int val="202004"/>
+        <int val="202005"/>
+        <int val="202006"/>
+        <int val="202007"/>
+        <int val="202008"/>
+        <int val="202009"/>
+    </std_list>
+    <std_map>
+        <pair key="202000" value="80"/>
+        <pair key="202001" value="81"/>
+        <pair key="202002" value="82"/>
+        <pair key="202003" value="83"/>
+        <pair key="202004" value="84"/>
+        <pair key="202005" value="85"/>
+        <pair key="202006" value="86"/>
+        <pair key="202007" value="87"/>
+        <pair key="202008" value="88"/>
+        <pair key="202009" value="89"/>
+    </std_map>
+</serialization>
