@@ -11,17 +11,17 @@
 
 ![OOP大作业.png](https://i.loli.net/2020/07/05/FeHYLiVTnQwqWUc.png)
 
-* main.cpp : 主函数，用于测试
-* binary.h : 包含命名空间 binary, 包含了序列化为二进制串以及读取二进制序列化的函数 (由于该文件大量函数使用了template导致无法将定义与实现分开，所以便全部写在了一个文件中)
-* seriXml.h: 包含命名空间 xml ,包含了序列化为xml以及读取序列化xml的函数 (由于该文件大量函数使用了template导致无法将定义与实现分开，所以便全部写在了一个文件中)
-* buffer.h & buffer.cpp : 缓冲区管理，主要为binary序列化提供支持，封装了关于二进制串输出到文件的功能，简化binary.h代码
-* float.h & float.cpp : IEEE-754编码支持，可以将浮点数在IEEE-754编码与浮点表示之间转化，便于储存浮点数的二进制
-* defineList.h : 包含一些常量的定义，主要是对不同类型的编号
-* typeJudger.h : 该文件封装对于变量类型的判断的函数
-* userDefined.h : 该文件提供了对于用户自定义struct的序列化的支持
-* tinyxml2.h & tinyxml2.cpp : 提供了关于xml文件的创建、编辑、查询、保存的功能.
-* test.h & test.cpp : 实现整个工程的测试，包含基础数据类型、容器类型、用户自定义类型的两种序列化(二进制与xml)
-* base64.h & base64.cpp : 实现将xml文件用base64编码在解密，编码后的文件存储在encode_data.txt中，解密后的文件存储在decode_data.xml中
+* `main.cpp` : 主函数，用于测试
+* `binary.h` : 包含命名空间 binary, 包含了序列化为二进制串以及读取二进制序列化的函数 (由于该文件大量函数使用了template导致无法将定义与实现分开，所以便全部写在了一个文件中)
+* `seriXml.h`: 包含命名空间 xml ,包含了序列化为xml以及读取序列化xml的函数 (由于该文件大量函数使用了template导致无法将定义与实现分开，所以便全部写在了一个文件中)
+* `buffer.h & buffer.cpp` : 缓冲区管理，主要为binary序列化提供支持，封装了关于二进制串输出到文件的功能，简化binary.h代码
+* `float.h & float.cpp` : IEEE-754编码支持，可以将浮点数在IEEE-754编码与浮点表示之间转化，便于储存浮点数的二进制
+* `defineList.h` : 包含一些常量的定义，主要是对不同类型的编号
+* `typeJudger.h` : 该文件封装对于变量类型的判断的函数
+* `userDefined.h` : 该文件提供了对于用户自定义struct的序列化的支持
+* `tinyxml2.h & tinyxml2.cpp` : 提供了关于xml文件的创建、编辑、查询、保存的功能.
+* `test.h & test.cpp` : 实现整个工程的测试，包含基础数据类型、容器类型、用户自定义类型的两种序列化(二进制与xml)
+* `base64.h & base64.cpp` : 实现将xml文件用base64编码在解密，编码后的文件存储在encode_data.txt中，解密后的文件存储在decode_data.xml中
 
 序列化支持下列
 
